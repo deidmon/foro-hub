@@ -59,7 +59,7 @@ public class TopicoController {
 
     @GetMapping
     public ResponseEntity<Page<DatosListadoTopico>> listarTopicos(@PageableDefault(size =4, sort = "titulo") Pageable paginacion){
-        return ResponseEntity.ok(topicoRepository.findAll(paginacion).map(DatosListadoTopico :: new));
+        return ResponseEntity.ok(topicoRepository.findByStatusTrue(paginacion).map(DatosListadoTopico :: new));
     }
 
     @GetMapping("/{id}")
@@ -85,6 +85,14 @@ public class TopicoController {
 
         topico.actualizarDatos(datosActualizarTopico);
         return ResponseEntity.ok(new DatosRespuestaTopico(topico.getId(), topico.getTitulo(), topico.getMensaje(),topico.getAutor(),topico.getCurso()));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminarTopico(@PathVariable Long id){
+        Topico topico = topicoRepository.getReferenceById(id);
+        topico.desactivarTopico();
+        return ResponseEntity.noContent().build();
     }
 
 }

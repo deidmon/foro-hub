@@ -92,5 +92,8 @@ public class Topico {
         }*/
 
     }
+    public void desactivarTopico() {
+        this.status = false;
+    }
 
 }
