@@ -36,6 +36,16 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch =FetchType.EAGER)
     private List<Respuesta> respuestas;
 
+    public Topico(DatosRegistroTopico datosRegistroTopico, Usuario usuario, Curso curso){
+        this.status = true;
+        this.titulo = datosRegistroTopico.titulo();
+        this.mensaje = datosRegistroTopico.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
+        this.autor = usuario;
+        this.curso = curso;
+    }
+    public Topico(){}
+
     public Long getId() {
         return id;
     }

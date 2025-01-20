@@ -24,5 +24,23 @@ public class Usuario {
     @JoinColumn(name = "perfil_id")
     private Perfil perfiles;
 
-    public Usuario(){}
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public String getContrasenna() {
+        return contrasenna;
+    }
+
+    public Perfil getPerfiles() {
+        return perfiles;
+    }
 }
