@@ -5,6 +5,8 @@ import foro.hub.api.domain.curso.CursoRepository;
 import foro.hub.api.domain.topico.*;
 import foro.hub.api.domain.usuario.Usuario;
 import foro.hub.api.domain.usuario.UsuarioRepository;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/topicos")
+@SecurityRequirement(name = "bearer-key")
 public class TopicoController {
 
     @Autowired
@@ -58,7 +61,7 @@ public class TopicoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DatosListadoTopico>> listarTopicos(@PageableDefault(size =4, sort = "titulo") Pageable paginacion){
+    public ResponseEntity<Page<DatosListadoTopico>> listarTopicos(@Parameter(hidden = true) @PageableDefault(size =4, sort = "titulo") Pageable paginacion){
         return ResponseEntity.ok(topicoRepository.findByStatusTrue(paginacion).map(DatosListadoTopico :: new));
     }
 
